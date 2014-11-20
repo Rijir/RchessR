@@ -18,7 +18,7 @@ import java.util.HashSet;
   }
 
   public Board(){
-    private spaces = new Piece[][]{
+    spaces = new Piece[][]{
           {new Rook(Team.BLACK, 0, 0, this), new Knight(Team.BLACK, 1, 0, this),
            new Bishop(Team.BLACK, 2, 0, this), new Queen(Team.BLACK, 3, 0, this),
            new King(Team.BLACK, 4, 0, this), new Bishop(Team.BLACK, 5 , 0, this),
