@@ -1,0 +1,53 @@
+board:
+  fields: two dimentional array for the current board state
+  
+  methods:
+    Constructors: standard start of game
+                  construct from two dimentional array
+                  construct from move history (algebraic notation)
+
+    public: toString()
+            getPiece(x, y)
+            putPiece(p, x, y)
+            move(string, team) need to add support for ambiguity resolution in commands, castling,
+              and promotion.
+            move(x1, y1, x2, y2)
+            getScore(team)
+
+            To add:
+
+    private:translateMove(string)
+            getMovers(x, y, t)
+
+piece:
+  fields: x, y, team, hasMoved, board
+
+  methods:
+    Constructors: (team, x, y, board)
+
+    public: move(x, y)
+            validMove(x, y) to be overrided. Piece's contains general checks for whether the space
+              is on the board and whether another piece on the same team is on the space.
+            getTeam()
+            getBoard()
+            x()
+            y()
+            hasMoved()
+            toString() to be overrided with the pieces string representation
+            getName() to be overrided with the piece's name
+            getValue()
+            getValidMoves() returns a set of points which are valid moves
+            
+            To add:
+
+TODO: add castling and en passant
+
+forms of move:
+  Pawn move: [a-f][1-8]
+  Pawn capture: x[a-f][1-8]
+  Pawn promotion move: [a-f][1-8][KQBNR]
+  Pawn promotion capture: x[a-f][1-8][KQBNR]
+  Generic move: [KQBNR][a-f][1-8]
+  Generic capture: [KQBNR]x[a-f][1-8]
+  Long Castle: O-O-O
+  Short Castle: O-O
