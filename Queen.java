@@ -1,11 +1,14 @@
 import java.awt.Point;
 import java.util.HashSet;
-
+/* This class describes the Queen piece, including valid movement, point value, name, and string
+ * representation.
+ */
 public class Queen extends Piece{
   public Queen(Team team, int x, int y, Board board){
     super(team, x, y, board);
   }
 
+  //returns true if the move is valid for a bishop or rook.
   public boolean validMove(int x, int y){
     if(!super.validMove(x, y)){
       return false;
@@ -46,6 +49,7 @@ public class Queen extends Piece{
     return 9;
   }
   
+  //returns all spaces into which the queen can currently move.
   public HashSet<Point> getValidMoves(){
     HashSet<Point> set = new HashSet<Point>();
     for(int i = 1; i < Math.max(Math.max(this.x(), 7 - this.x()), Math.max(this.y(), 7 - this.y())); i++){

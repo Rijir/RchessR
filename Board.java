@@ -4,19 +4,30 @@ import java.awt.Point;
 import java.util.HashSet;
 
 /* This class describes the chess board. It stores the positions of all of the pieces and provides
- * methods 
- * 
+ * methods for viewing the board state and performing valid moves.
  */
 
  public class Board{
+  //array containing the pieces. first dimention corresponds to row and second corresponds to 
+  //column.
   private Piece[][] spaces;
+  //A list of algebraic notation entries describing the moves up to this point in the game.
   private ArrayList<String> history;
   
+  //Constructs a board with predefined piece positions and the given move history.
+  //Prameters:
+  //  placements: the two dimentional Piece array descriping the positions of all the pieces on the
+  //  board
+  //  history: the array list containing the algebraic notation representations of past moves in
+  //  the game.
   public Board(Piece[][] placements, ArrayList<String> history){
+    //THING I REALLY NEED TO DO!!!!: make sure to set all board fields of the pieces to point to
+    //this, since there is no way that has already been set
     spaces = placements;
     this.history = history;
   }
 
+  //Constructs a board with all the pieces in their starting position and no move history.
   public Board(){
     spaces = new Piece[][]{
           {new Rook(Team.BLACK, 0, 0, this), new Knight(Team.BLACK, 1, 0, this),
@@ -43,10 +54,15 @@ import java.util.HashSet;
     history = new ArrayList<String>();
   }
 
+  //Constructs a board with predefined piece positions and no move history.
+  //Parameters:
+  //  placements: the two dimentional Piece array descriping the positions of all the pieces on the
+  //  board
   public Board(Piece[][] placements){
     this(placements, new ArrayList<String>());
   }
 
+  //Returns a string representation of the current board state.
   public String toString(){
     StringBuilder builder = new StringBuilder();
     builder.append("---------------------------------\n");
@@ -66,17 +82,27 @@ import java.util.HashSet;
     return builder.toString();
   }
   
+  //returns the piece in the given position.
+  //Parameters:
+  //  x: the column of the piece
+  //  y: the row of the piece
   public Piece getPiece(int x, int y){
     return spaces[y][x];
   }
 
+  //places the given piece on the board at the indicated position.
+  //parameter:
+  //  p: the piece to place
+  //  x: the column in which to place the piece
+  //  y: the row in which to place the piece
   public void putPiece(Piece p, int x, int y){
     spaces[y][x] = p;
   }
   
+  //Moves the piece at x1, y1 to x2, y2
   public boolean move(int x1, int y1, int x2, int y2){
     Piece p = this.getPiece(x1, y1);
-    if(p.move(x2, y2)){
+    if(p != null && p.move(x2, y2)){
       this.putPiece(p, x2, y2);
       this.putPiece(null, x1, y1);
       return true;
@@ -85,6 +111,10 @@ import java.util.HashSet;
     }
   }
 
+  //performs the move given by an algebraic chess notation string
+  //Parameters:
+  //  s: the string containing the move
+  //  t: the team which is currently moving
   public boolean move(String s, Team t) throws AmbiguousMoveException{
     String pieceName;
     String coords;
@@ -114,6 +144,9 @@ import java.util.HashSet;
     }
   }
 
+  //translates the string coordinates into integers x and y. The string should be in of the form
+  //[a-h][1-8]. Returns a point for now, might change that to a custom BoardPosition class or
+  //something.
   private static Point translateMove(String coords){
     if((coords.length() != 2) || (!Character.isLetter(coords.charAt(0))) ||
         (!Character.isDigit(coords.charAt(1)))){
@@ -130,6 +163,11 @@ import java.util.HashSet;
     return p;
   }
 
+  //Returns a set containing all pieces on the given team which can move to a given square.
+  //Parameters:
+  //  x: the col of the position to check
+  //  y: the row ""
+  //  team: get black or white pieces
   public HashSet<Piece> getMovers(int x, int y, Team team){
     HashSet<Piece> set = new HashSet<Piece>();
     for(Piece[] row : spaces){
@@ -142,6 +180,10 @@ import java.util.HashSet;
     return set;
   }
 
+  //returns the integer value of all the pieces still on the board for a given team. King counts
+  //for 40 so that he outweighs all other pieces. If the point value whithout the king is needed,
+  //just subtract 40 from the score, since the king is guarenteed to be on the board (at least in
+  //standard chess).
   public int getScore(Team team){
     int score = 0;
     for(int i = 0; i < 8; i++){

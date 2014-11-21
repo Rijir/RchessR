@@ -1,11 +1,17 @@
 import java.awt.Point;
 import java.util.HashSet;
 
+/* This class describes the Pawn piece, including valid movement, point value, name, and string
+ * representation.
+ */
 public class Pawn extends Piece{
   public Pawn(Team team, int x, int y, Board board){
     super(team, x, y, board);
   }
 
+  //Returns true if the space is one straight ahead and empty, one diagonal square ahead and an
+  //enemy in the space, or two straight ahead and this is the pawn's first move. Eventually it will
+  //also handle En Pasant, but that's a little bit complicated.
   public boolean validMove(int x, int y){
     if(!super.validMove(x, y)){
       return false;
@@ -41,6 +47,7 @@ public class Pawn extends Piece{
     return 1;
   }
 
+  //returns all spaces into which the pawn can move.
   public HashSet<Point> getValidMoves(){
     HashSet<Point> set = new HashSet<Point>();
     if(this.validMove(this.x(), this.y() + 1)){
@@ -70,6 +77,7 @@ public class Pawn extends Piece{
     return set;
   }
 
+  //returns true if the pawn is currently in the promotion row.
   public boolean canPromote(){
     return (this.getTeam() == Team.WHITE && this.y() == 0) ||
            (this.getTeam() == Team.BLACK && this.y() == 7);
