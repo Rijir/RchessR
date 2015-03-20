@@ -1,3 +1,5 @@
+package rchessr;
+
 import java.util.HashSet;
 
 /* Right now this class is just for testing stuff. Once I get everything working I'll turn it into

@@ -1,5 +1,9 @@
+package rchessr.pieces;
+
 import java.awt.Point;
 import java.util.HashSet;
+import rchessr.Team;
+import rchessr.Board;
 
 /* This class specifies shared behavior and fields for chess pieces.
  */

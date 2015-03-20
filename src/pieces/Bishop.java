@@ -1,5 +1,9 @@
+package rchessr.pieces;
+
 import java.awt.Point;
 import java.util.HashSet;
+import rchessr.Team;
+import rchessr.Board;
 
 /* This class describes the Bishop piece including its valid moves, point value, name, and 
  * character representation.

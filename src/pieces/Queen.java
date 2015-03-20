@@ -1,5 +1,10 @@
+package rchessr.pieces;
+
 import java.awt.Point;
 import java.util.HashSet;
+import rchessr.Team;
+import rchessr.Board;
+
 /* This class describes the Queen piece, including valid movement, point value, name, and string
  * representation.
  */

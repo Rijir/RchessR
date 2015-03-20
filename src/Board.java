@@ -1,7 +1,10 @@
+package rchessr;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.awt.Point;
 import java.util.HashSet;
+import rchessr.pieces.*;
 
 /* This class describes the chess board. It stores the positions of all of the pieces and provides
  * methods for viewing the board state and performing valid moves.
