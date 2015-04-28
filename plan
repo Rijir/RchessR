@@ -41,6 +41,11 @@ piece:
             To add:
 
 TODO: add castling and en passant
+      add checks for whether a move will put the player in check to
+      Piece.validMove(). Castling should also check if the intermediatespace
+      the king goes through is threatened.
+        PROBLEM: how do you avoid infinite recursion. Can't just call
+        Piece.validMove() because that looks for new check again
 
 forms of move:
   Pawn move: [a-f][1-8]

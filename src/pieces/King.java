@@ -14,14 +14,9 @@ public class King extends Piece{
   }
 
   //Checks that the space is one step away in any direction.
-  public boolean validMove(int x, int y){//TODO: Add castling support
-    if(!super.validMove(x, y)){//generic checks
-      return false;
-    }else if((Math.abs(x - this.x()) == 1) && (Math.abs(y - this.y()) == 1)){
-      return true;
-    }else{
-      return false;
-    }
+  public boolean validMove(int x, int y){
+    return super.validMove(x, y) && ((Math.abs(x - this.x())) <= 1 
+                                      && (Math.abs(y - this.y()) <= 1));
   }
   
   public String toString(){
@@ -49,5 +44,32 @@ public class King extends Piece{
       }
     }
     return set;
+  }
+
+  // Alternate to move. Called by the board or whatever ends up interpretting
+  // algebraic chess notation.
+  public boolean castle(boolean kingside){
+    // The y will not change so we ignore it
+    int kingTargetX, rookTargetX;
+    Piece rook;
+    if(kingside){
+      kingTargetX = 6;
+      rookTargetX = 5;
+      rook = board.getPiece(7, this.y());
+    }else{
+      kingTargetX = 2;
+      rookTargetX = 3;
+      rook = board.getPiece(0, this.y());
+    }
+    if(rook == null || !rook.instanceOf(Rook)
+        || this.hasMoved || rook.hasMoved){
+      return false;
+    }else{
+      this.x = kingTargetX;
+      rook.x = rookTargetX;
+      this.hasMoved = true;
+      rook.hasMoved = true;
+      return true;
+    }
   }
 }
